@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="spring-basic" default="build_project" basedir=".">
+    <description>spring-sample project build</description>
+    <property name="webapp.dir" value="."/>
+    <property name="src.dir" value="${webapp.dir}/src"/>
+    <property name="resources.dir" value="${src.dir}/resources"/>
+    <property name="classes.dir" value="${webapp.dir}/webapp/WEB-INF/classes"/>
+    <property name="lib.dir" value="${webapp.dir}/webapp/WEB-INF/lib"/>
+<!--    <property name="lib.dev.dir" value="${webapp.dir}/lib"/>-->
+
+    <property name="build.dir" value="${webapp.dir}/target"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+<!--        <fileset dir="${lib.dev.dir}" includes="**/*.jar"/>-->
+    </path>
+
+    <!-- Clean classes directory -->
+    <target name="clean">
+        <delete dir="${classes.dir}"/>
+        <delete dir="${build.dir}"/>
+        <mkdir dir="${build.dir}"/>
+    </target>
+
+    <!-- Compile -->
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" debug="true" encoding="utf-8" classpathref="classpath"
+               includeantruntime="false"/>
+    </target>
+    <!-- Copy Properties -->
+    <target name="copy_prop">
+        <copy todir="${classes.dir}" overwrite="true">
+            <fileset dir="${resources.dir}">
+                <include name="**/*.properties"/>
+            </fileset>
+        </copy>
+        <copy todir="${classes.dir}" overwrite="true">
+            <fileset dir="${resources.dir}">
+                <include name="**/*.properties"/>
+            </fileset>
+            <globmapper from="*_prod.properties" to="*.properties"/>
+        </copy>
+        <copy todir="${classes.dir}" overwrite="true">
+            <fileset dir="${resources.dir}">
+                <include name="**/*.xml"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="build_project" depends="clean, compile, copy_prop">
+        <war warfile = "${build.dir}/${ant.project.name}.war" webxml = "${webapp.dir}/webapp/WEB-INF/web.xml">
+
+            <fileset dir = "${webapp.dir}/webapp">
+                <include name = "**/*.*"/>
+            </fileset>
+
+            <lib dir = "${lib.dir}">
+                <exclude name = ""/>
+                <include name = "**.jar"/>
+            </lib>
+
+            <classes dir = "${classes.dir}"/>
+        </war>
+    </target>
+</project>
