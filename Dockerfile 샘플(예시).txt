@@ -1,0 +1,17 @@
+# Dockerfile 샘플(예시)
+# nginx 서버 이미지 만들기
+FROM debian:buster
+
+MAINTAINER jjangee <jjangee0918@gmail.com>
+
+ENV HELLO "hello docker!"
+
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN apt-get install -y nginx
+RUN echo $HELLO
+
+COPY srcs/test.sh /root/
+CMD ["/bin/bash", "/root/test.sh"]
+
+EXPOSE 80 443
