@@ -15,35 +15,36 @@ import org.springframework.context.support.MessageSourceAccessor;
 import java.util.Locale;
 
 public class MessageService {
-    private static final Logger logger = LoggerFactory.getLogger(MessageService.class);
-//    //@Override
-//    public void run(ApplicationContext args) throws Exception {
-//        Environment environment = context.getEnvironment();
-//        logger.debug("messageService getProperty : " +environment.getProperty("greeting"));
-//    }
-//    @Bean
-//    public MessageSource messageSource() { // 빈 이름은 무조건 messageSource 여야 함 !!
-//
-//        // 메시지 파일로 프로퍼티 형식 사용을 위한 MessageSource 구현체 클래스
-//        ReloadableResourceBundleMessageSource ms = new ReloadableResourceBundleMessageSource();
-//        ms.setDefaultEncoding("UTF-8");
-//        ms.import java.util.Locale;
-//
-//}
-//
+  private static final Logger logger = LoggerFactory.getLogger(MessageService.class);
 
-    private static MessageSourceAccessor msAcc = null;
+  @Override
+  public void run(ApplicationContext args) throws Exception {
+    Environment environment = context.getEnvironment();
+    logger.debug("messageService getProperty : " + environment.getProperty("greeting"));
+  }
 
-    public void setMessageSourceAccessor(MessageSourceAccessor msAcc) {
-        MessageService.msAcc = msAcc;
-    }
+  @Bean
+   public MessageSource messageSource() { // 빈 이름은 무조건 messageSource 여야 함 !!
 
-    public static String getMessage(String code) {
-        return msAcc.getMessage(code, Locale.getDefault());
-    }
+       // 메시지 파일로 프로퍼티 형식 사용을 위한 MessageSource 구현체 클래스
+       ReloadableResourceBundleMessageSource ms = new ReloadableResourceBundleMessageSource();
+       ms.setDefaultEncoding("UTF-8");
+       ms.import java.util.Locale;
 
-    public static String getMessage(String code, Object[] objs) {
-        return msAcc.getMessage(code, objs, Locale.getDefault());
-    }
+}
+
+  private static MessageSourceAccessor msAcc = null;
+
+  public void setMessageSourceAccessor(MessageSourceAccessor msAcc) {
+    MessageService.msAcc = msAcc;
+  }
+
+  public static String getMessage(String code) {
+    return msAcc.getMessage(code, Locale.getDefault());
+  }
+
+  public static String getMessage(String code, Object[] objs) {
+    return msAcc.getMessage(code, objs, Locale.getDefault());
+  }
 
 }
