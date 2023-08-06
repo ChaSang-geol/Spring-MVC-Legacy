@@ -3,7 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-**/WEB-INF/classess/**
+**/WEB-INF/classes/**
 
 ### STS ###
 .apt_generated
