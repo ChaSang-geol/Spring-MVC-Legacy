@@ -37,18 +37,10 @@ public class MainController {
 		mav.setViewName("main"); // 결과를 보여줄 뷰 이름을 설정한다.
 
 		logger.debug("greeting : " + MessageService.getMessage("greeting"));
-		// logger.debug("myname : " + MessageService.getMessage("myname", new String[] { "Cha, Sang-geol" }));
+		logger.debug("myname : " + MessageService.getMessage("myname", new String[] { "Cha, Sang-geol" }));
 		return mav;
 
 		// return new ModelAndView("main");
 	}
-	// 2023-08-06 17:55:51 2023-08-06 17:55:51 ERROR
-	// [FrameworkServlet.java:initServletBean:458] - Context initialization failed
-	// 2023-08-06 17:55:51
-	// org.springframework.beans.factory.BeanDefinitionStoreException: Failed to
-	// read candidate component class: file
-	// [/usr/local/tomcat/webapps/ROOT/WEB-INF/classes/kr/co/sample/MainController.class];
-	// nested exception is java.lang.ArrayIndexOutOfBoundsException: 9322
-	// 2023-08-06 17:55:51 at
-	// org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider.findCandidateComponents(ClassPathScanningCandidateComponentProvider.java:255)
+	
 }
